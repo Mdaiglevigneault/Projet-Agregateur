@@ -1,0 +1,22 @@
+﻿<UserControl Name="ItemGrid" x:Class="agregateurWPF.Film"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:agregateurWPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" Height="180" Width="400"
+             Background="#373c3f">
+    <Grid>
+        <Button Height="180" Background="#FFF" Click="OpenFilmLink" BorderThickness="0">
+            <StackPanel Width="369" VerticalAlignment="Top" Height="167">
+                <TextBlock Name="TitleComponent" Text="Title" VerticalAlignment="Top" Foreground="Black"/>
+            </StackPanel>
+        </Button>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,36,0,0">
+            <Grid>
+                <TextBlock Name="DescComponent" TextWrapping="Wrap" Text="Description" Margin="10,0,9.6,0" Foreground="Black" Height="Auto" VerticalAlignment="Top" RenderTransformOrigin="0.532,0.496"/>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

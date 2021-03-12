@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="agregateurWPF.CsgoPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:agregateurWPF"
+             mc:Ignorable="d" Height="510" Width="999"
+             Background="#1b2838">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,8,0,0">
+        <Grid Name="ItemGridComponent"  Width="987" Background="#1b2838">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+            </Grid.RowDefinitions>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

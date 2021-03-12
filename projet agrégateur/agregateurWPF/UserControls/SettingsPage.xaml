@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="agregateurWPF.SettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:agregateurWPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" Height="510" Width="999"
+             Background="Gray">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,8,0,0" Foreground="Black">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Height="50" VerticalAlignment="Top" Margin="0 0 0 10">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="0 3">
+                        <TextBlock Width="170" Text="Profile Name : "  Margin="5 0 5 0" TextAlignment="Right" VerticalAlignment="Center" FontSize="24" FontWeight="Bold"/>
+                        <TextBox Name="ProfilName" Height="40" Width="650" Background="#bcbcbc" Foreground="Black"/>
+                    </StackPanel>
+                    <materialDesign:PopupBox   PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="0,0,20,0" HorizontalAlignment="Right" Width="50" Height="50">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Kind="Delete" Height="40" Width="40" Margin="5" VerticalAlignment="Center" Background="Red" Foreground="White"/>
+                        </materialDesign:PopupBox.ToggleContent>
+                        <StackPanel Width="110">
+                            <TextBlock Text="Delete Profile?" HorizontalAlignment="Center"/>
+                            <Separator/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Yes" Click="DeleteButton_Click"/>
+                                <Button Content="No"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </StackPanel>
+            </Grid>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20 0 0 0">
+                <materialDesign:PackIcon Kind="Youtube" Height="40" Width="40" Margin="5" VerticalAlignment="Center" Background="Transparent" Foreground="Red"/>
+                <TextBlock Text="Youtube Settings :" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+            </StackPanel>
+            <Grid Grid.Row="2" Margin="0 0 0 10">
+                <Grid Name="YoutubeSettingComponent" Margin="0,0,88,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                    </Grid.RowDefinitions>
+                </Grid>
+                <Button Name="YoutubeSettingBtn" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="55" Height="55" Foreground="Black"  Margin="10" Click="AddSettings_Click">
+                    <materialDesign:PackIcon Kind="Plus" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFFFF"/>
+                </Button>
+            </Grid>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20 0 0 0">
+                <materialDesign:PackIcon Kind="Twitch" Height="40" Width="40" Margin="5" VerticalAlignment="Center" Background="Transparent" Foreground="#6441a5"/>
+                <TextBlock Text="Twitch Settings :" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+            </StackPanel>
+            <Grid Grid.Row="4" Margin="0 0 0 10">
+                <Grid Name="TwitchSettingComponent" Margin="0,0,88,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                    </Grid.RowDefinitions>
+                </Grid>
+                <Button Name="TwitchSettingBtn" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="55" Height="55" Foreground="Black"  Margin="10" Click="AddSettings_Click">
+                    <materialDesign:PackIcon Kind="Plus" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFFFF"/>
+                </Button>
+            </Grid>
+            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="20 0 0 0">
+                <Grid>
+                    <materialDesign:PackIcon Kind="Circle" Height="45" Width="45" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Foreground="#FF5700"/>
+                    <materialDesign:PackIcon Kind="Reddit" Height="30" Width="30" Margin="5" VerticalAlignment="Center"  HorizontalAlignment="Center" Background="Transparent" Foreground="White"/>
+                </Grid>
+                <TextBlock Text="Reddit Settings :" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+            </StackPanel>
+            <Grid Grid.Row="6" Margin="0 0 0 10">
+                <Grid Name="RedditSettingComponent" Margin="0,0,88,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                    </Grid.RowDefinitions>
+                </Grid>
+                <Button Name="RedditSettingBtn" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="55" Height="55" Foreground="Black"  Margin="10" Click="AddSettings_Click">
+                    <materialDesign:PackIcon Kind="Plus" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFFFF"/>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="7">
+                <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="55" Height="55" Foreground="Black"  Margin="10" Click="SaveButton_CLick">
+                    <materialDesign:PackIcon Kind="ContentSave" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFFFF"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

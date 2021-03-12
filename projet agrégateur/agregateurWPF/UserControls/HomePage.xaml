@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="agregateurWPF.HomePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:agregateurWPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" Height="510" Width="999"
+             Background="Gray">
+    <Grid Margin="0,8,0,0">
+        <StackPanel Orientation="Horizontal" Margin="38,47,477.2,305.4">
+            <Button x:Name="Youtube" Height="150" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Background="{x:Null}" BorderBrush="{x:Null}" Click="Menu_Select">
+                <Grid Margin="-50">
+                    <materialDesign:PackIcon Kind="Circle" Height="60" Width="60" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Foreground="White"/>
+                    <materialDesign:PackIcon Kind="Youtube" Height="150" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+
+            </Button>
+            <StackPanel VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Channels : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock x:Name="YTChannelsComponent" Text="0" Foreground="Black" FontSize="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Videos : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock x:Name="YTVideosComponent" Text="0" Foreground="Black" FontSize="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Posted Today : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock x:Name="YTTodayComponent" Text="0" Foreground="Black" FontSize="30"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="522,47,10.2,305.4">
+            <Button x:Name="Twitch" Height="150" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#6441a5" Background="{x:Null}" BorderBrush="{x:Null}" Click="Menu_Select">
+                <materialDesign:PackIcon Kind="Twitch" Height="150" Width="150" Margin="-50"/>
+            </Button>
+            <StackPanel VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Channels : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock x:Name="TwitchChannelsComponent" Text="0" Foreground="Black" FontSize="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Live : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock x:Name="TwitchInLiveComponent" Text="0" Foreground="Black" FontSize="30"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="38,276,477.2,76.4">
+            <Button x:Name="Reddit" Height="150" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="Menu_Select">
+                <Grid Margin="-50">
+                    <materialDesign:PackIcon Kind="Circle" Height="150" Width="150" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Foreground="#FF5700"/>
+                    <materialDesign:PackIcon Kind="Reddit" Height="100" Width="100" Margin="5" VerticalAlignment="Center"  HorizontalAlignment="Center" Background="Transparent" Foreground="White"/>
+                </Grid>
+            </Button>
+            <StackPanel VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Subreddits : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock x:Name="SubredditsComponent" Text="0" Foreground="Black" FontSize="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Posts : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock x:Name="PostsComponent" Text="0" Foreground="Black" FontSize="30"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="505,276,10.2,10.4">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="ItemCine" Height="90" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF5C99D6" Click="Menu_Select">
+                    <StackPanel Orientation="Horizontal" Height="90" HorizontalAlignment="Left" Margin="0">
+                        <materialDesign:PackIcon Kind="MovieRoll" Height="70" Width="70" VerticalAlignment="Center" Foreground="#991320"/>
+                    </StackPanel>
+                </Button>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Films : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock x:Name="FilmsComponent" Text="0" Foreground="Black" FontSize="30"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="ItemCSGO" Height="60" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="Menu_Select">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="-50" Width="150">
+                        <TextBlock Text="CS:GO" Height="60" Width="150" FontWeight="Bold" TextAlignment="Center" FontSize="40" Foreground="#ce8404"/>
+                    </StackPanel>
+                </Button>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Updates : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                        <TextBlock x:Name="CsUpdatesComponent" Text="0" Foreground="Black" FontSize="30"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="New Updates : " Foreground="Black" FontWeight="Bold" FontSize="30"/>
+                        <TextBlock x:Name="CsNewUpdatesComponent" Text="0" Foreground="Black" FontSize="30"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

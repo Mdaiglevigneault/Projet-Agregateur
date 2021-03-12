@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="agregateurWPF.RedditTabItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:agregateurWPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" Height="480" Width="999"
+             Background="#373c3f">
+    <Grid>
+        <StackPanel>
+            <TextBlock x:Name="TitleComponent" TextWrapping="Wrap" FontSize="26" FontWeight="Bold" Margin="33,0,0,0" Height="75" Foreground="#FFF"/>
+        </StackPanel>
+        <Button HorizontalAlignment="Left" Height="386" VerticalAlignment="Top" Width="726" Margin="33,75,0,0" Background="#FF181818" BorderThickness="0" Click="OpenPost_Click">
+            <StackPanel Height="454" Width="744">
+                <Image Name="MediaComponent" Height="355" Margin="10,10,63,10"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="874,203,0,0" VerticalAlignment="Top" Width="95" Height="54" Click="NextPost_Click">
+            <materialDesign:PackIcon Kind="ArrowRightBold" Width="25" Height="25"/>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="779,203,0,0" VerticalAlignment="Top" Width="95" Height="54" Click="LastPost_Click">
+            <materialDesign:PackIcon Kind="ArrowLeftBold" Width="25" Height="25"/>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="779,262,0,0" VerticalAlignment="Top" Width="190" Height="54" Click="SharePost_Click">
+            <materialDesign:PackIcon Kind="ClipboardTextOutline" Width="25" Height="25"/>
+        </Button>
+    </Grid>
+</UserControl>
