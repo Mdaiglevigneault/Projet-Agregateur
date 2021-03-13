@@ -30,8 +30,8 @@ namespace agregateurMetier
                     //si cest un meme (image)
                     if (t_asImage) {
                         RedditPost t_post = new RedditPost();
-                        t_post.Titre = t_XmlEntry.ChildNodes[6].InnerText;
-                        t_post.PostLink = t_XmlEntry.ChildNodes[4].Attributes["href"].Value;
+                        t_post.Titre = t_XmlEntry.ChildNodes[7].InnerText;
+                        t_post.PostLink = t_XmlEntry.ChildNodes[5].Attributes["href"].Value;
                         t_post.Img = new BitmapImage(new Uri(m_CurrentImgUrl, UriKind.Absolute));
                         t_posts.Add(t_post);
                     }
