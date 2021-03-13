@@ -22,7 +22,7 @@ namespace agregateurWPF
             ItemGridComponent.RowDefinitions.Add(t_row);
         }
 
-        public void AfficherVideo(YT_Twitch_MediaBtn a_video) {
+        public void AfficherVideo(YT_MediaBtn a_video) {
             ItemGridComponent.Children.Add(a_video);
         }
     }

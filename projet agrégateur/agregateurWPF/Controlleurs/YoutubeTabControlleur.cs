@@ -26,7 +26,7 @@ namespace agregateurMetier
                 for (int j = 0; j < m_Column; j++) {
                     if (t_currentIndex < t_VideosArray.Length) {
                         if (t_VideosArray[t_currentIndex] != null) {
-                            m_Vue.AfficherVideo(new YT_Twitch_MediaBtn(t_VideosArray[t_currentIndex], i, j));
+                            m_Vue.AfficherVideo(new YT_MediaBtn(t_VideosArray[t_currentIndex], i, j));
                             t_currentIndex++;
                         }
                     }

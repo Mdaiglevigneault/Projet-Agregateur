@@ -16,7 +16,7 @@ namespace agregateurWPF
             InitializeComponent();
             m_controlleur = new TwitchPageControlleur(this);
         }
-        public void AfficherLive(YT_Twitch_MediaBtn a_LiveBtn) {
+        public void AfficherLive(Twitch_MediaBtn a_LiveBtn) {
             ItemGridComponent.Children.Add(a_LiveBtn);
         }
 
