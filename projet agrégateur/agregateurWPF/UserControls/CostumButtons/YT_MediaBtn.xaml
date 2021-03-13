@@ -13,16 +13,15 @@
                     <RowDefinition Height="16*"/>
                     <RowDefinition Height="351*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Width="310" Height="400" Margin="-17,-17,-17,-16.6" Grid.RowSpan="2">
-                    <Grid Height="163" VerticalAlignment="Top" Margin=" 10 10 10 5">
-                        <Image Name="LiveThumbnailComponent"/>
+                <StackPanel Width="310" Height="400" Margin="-17,-17,-17, 17" Grid.RowSpan="2">
+                    <Grid Height="220" VerticalAlignment="Top" Margin="0,-17,0, -17">
+                        <Image Name="LiveThumbnailComponent" Stretch="Fill" Width="310" Height="220"/>
                     </Grid>
                     <TextBlock Name="TitleComponent" Margin="10 -5 10 5" TextWrapping="Wrap" Height="32" VerticalAlignment="Center" Foreground="#FFF" FontWeight="Bold" FontSize="12"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10 0">
                         <Image Name="ChannelLogoComponent" Height="40" Width="40" VerticalAlignment="Top"/>
                         <TextBlock Name="ChannelNameComponent" Margin="5,0,110,0" Height="20" Width="130" VerticalAlignment="Center" Foreground="#FFF" FontWeight="Bold" FontSize="16"/>
                     </StackPanel>
-
                 </StackPanel>
                 <TextBlock Name="DateComponent" TextAlignment="Right" Foreground="#ADADB8" FontWeight="Bold" FontSize="12" Margin="175,192.2,0,140.4" Grid.Row="1"/>
                 <TextBlock Name="SinceComponent" TextAlignment="Right" Foreground="#ADADB8" FontWeight="Bold" FontSize="12" Margin="114,174.2,0,158.4" Grid.Row="1"/>
