@@ -5,6 +5,7 @@ namespace agregateurMetier
 {
     public class TwitchLive
     {
+        public int id { get; set; }
         public string ChannelName { get; set; }
         public string Title { get; set; }
         public string Link { get; set; }
