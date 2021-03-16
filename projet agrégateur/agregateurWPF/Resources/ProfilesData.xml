@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Data>
+  <Upgrade>1</Upgrade>
   <LastIDConnected>1</LastIDConnected>
   <Profil>
     <Id>1</Id>
