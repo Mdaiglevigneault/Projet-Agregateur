@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Media.Imaging;
 using System.Xml;
 using agregateurMetier;
+using agregateurWPF.DAOs;
+using agregateurWPF.Models;
 
 namespace agregateurWPF
 {
     public class MainWindowControlleur
     {
-        public XmlNode CurrentProfile;
+        public Profile ProfileActu;
         private MainWindow m_vue;
         public string CurrentTab = "Home";
         public List<SubReddit> SubReddits;
@@ -17,9 +20,8 @@ namespace agregateurWPF
         public List<TwitchLive> TwitchLives;
         public List<CsGoUpdate> CsGoUpdades;
 
-        private XmlDocument m_Doc;
-
         private static MainWindowControlleur m_Instance;
+        private static string OldDataDirectory = "./Resources/ProfilesData.xml";
 
         public static MainWindowControlleur Instance {
             get { return m_Instance;}
@@ -35,30 +37,44 @@ namespace agregateurWPF
             SubReddits = new List<SubReddit>();
             YoutubeChannels = new List<YoutubeChannel>();
 
+            if (File.Exists(OldDataDirectory)) {
+                try {
+                    XmlDocument t_Doc = new XmlDocument();
+                    t_Doc.Load(OldDataDirectory);
+                    if (t_Doc.DocumentElement.SelectSingleNode("/Data/Upgrade").InnerText == "1") {
+                        SQLiteDAO.upgrade(t_Doc);
+                        File.Delete(OldDataDirectory);
+                    }
+                } catch(Exception e) { }
+            }
 
-            m_Doc = new XmlDocument();
-
-            m_Doc.Load("./Resources/ProfilesData.xml");
             ReloadProfileButtons();
-            LoadProfile(m_Doc.DocumentElement.SelectSingleNode("/Data/LastIDConnected").InnerText);
+            LoadProfile(SQLiteDAO.LastConnectedProfile());
         }
 
         private void ReloadProfileButtons() {
             m_vue.ClearProfilButtons();
-            foreach (XmlNode t_profil in m_Doc.DocumentElement.SelectNodes("/Data/Profil")) {
-                m_vue.AfficherProfilButton(t_profil.SelectSingleNode("./Name").InnerText, t_profil.SelectSingleNode("./Id").InnerText);
+            foreach (Profile t_profil in SQLiteDAO.loadAllProfile()) {
+                m_vue.AfficherProfilButton(t_profil.Name, t_profil.Id.ToString());
             }
+            /*foreach (XmlNode t_profil in m_Doc.DocumentElement.SelectNodes("/Data/Profil")) {
+                m_vue.AfficherProfilButton(t_profil.SelectSingleNode("./Name").InnerText, t_profil.SelectSingleNode("./Id").InnerText);
+            }*/
         }
 
         public void LoadProfile(string a_ID) {
-            XmlNodeList t_Ids = m_Doc.DocumentElement.SelectNodes("/Data/Profil/Id");
+            Profile profile = SQLiteDAO.loadProfile(Int32.Parse(a_ID));
+            ProfileActu = profile;
+            m_vue.AfficherNomProfilActuel(profile.Name);
+            //Vieux fontionnement
+            /*XmlNodeList t_Ids = m_Doc.DocumentElement.SelectNodes("/Data/Profil/Id");
             foreach (XmlNode t_Id in t_Ids) {
                 if (t_Id.InnerText.Equals(a_ID))
                     CurrentProfile = t_Id.ParentNode;
             }
             m_vue.AfficherNomProfilActuel(CurrentProfile.SelectSingleNode("./Name").InnerText);
             m_Doc.DocumentElement.SelectSingleNode("/Data/LastIDConnected").InnerText = a_ID;
-            m_Doc.Save("./Resources/ProfilesData.xml");
+            m_Doc.Save("./Resources/ProfilesData.xml");*/
 
             RefreshDAO();
 
@@ -66,16 +82,25 @@ namespace agregateurWPF
         }
 
         public void DeleteCurrentProfile() {
-            XmlNodeList t_profileList = m_Doc.SelectNodes("/Data/Profil");
+            if (SQLiteDAO.loadAllProfile().Count > 1) {
+                SQLiteDAO.removeProfile(ProfileActu);
+                LoadProfile(SQLiteDAO.loadAllProfile()[0].Id.ToString());
+            }
+
+            /*XmlNodeList t_profileList = m_Doc.SelectNodes("/Data/Profil");
             if (t_profileList.Count > 1) {
                 m_Doc.DocumentElement.RemoveChild(CurrentProfile);
                 m_vue.RetirerProfilButton(CurrentProfile.SelectSingleNode("./Name").InnerText);
                 LoadProfile(m_Doc.DocumentElement.LastChild.SelectSingleNode("./Id").InnerText);
-            }
+            }*/
         }
 
         public void AddProfile() {
-            XmlNode t_ProfilNode = m_Doc.CreateElement("Profil");
+            //SQLite
+            Profile profile = SQLiteDAO.CreateProfile("Enter Name");
+
+            //Vieux fontionnement
+            /*XmlNode t_ProfilNode = m_Doc.CreateElement("Profil");
             XmlNode t_IDNode = m_Doc.CreateElement("Id");
             t_IDNode.InnerText = (Int32.Parse(m_Doc.LastChild.LastChild.SelectSingleNode("./Id").InnerText) +1).ToString();
             XmlNode t_NameNode = m_Doc.CreateElement("Name");
@@ -85,14 +110,46 @@ namespace agregateurWPF
             t_ProfilNode.AppendChild(m_Doc.CreateElement("YoutubeSetting"));
             t_ProfilNode.AppendChild(m_Doc.CreateElement("TwitchSetting"));
             t_ProfilNode.AppendChild(m_Doc.CreateElement("RedditSetting"));
-            m_Doc.DocumentElement.AppendChild(t_ProfilNode);
+            m_Doc.DocumentElement.AppendChild(t_ProfilNode);*/
             ReloadProfileButtons();
-            LoadProfile(t_IDNode.InnerText);
+            //LoadProfile(t_IDNode.InnerText);
+            LoadProfile(profile.Id.ToString());
         }
 
         public void RefreshDAO() {
+            List<YoutubeChannel> t_YTchannels = new List<YoutubeChannel>();
+            foreach (YoutubeEntry t_YTEntry in ProfileActu.YoutubeChannels) {
+                try {
+                    YoutubeChannel t_YTchannel = new YoutubeChannel();
+                    t_YTchannel.id = t_YTEntry.Id;
+                    t_YTchannel.ChannelName = t_YTEntry.Name;
+                    t_YTchannel.ChannelLink = t_YTEntry.Link;
+                    t_YTchannel.ChannelImageLink = t_YTEntry.Image;
+                    List<YoutubeVideo> t_vids = new YoutubeVideoDAO().GetChannelFeed(t_YTchannel.ChannelLink);
+                    foreach (YoutubeVideo t_vid in t_vids) {
+                            t_vid.ChannelImage = new BitmapImage(new Uri(t_YTchannel.ChannelImageLink));
+                    }
+                    t_YTchannel.ChannelVideos = t_vids;
+                    t_YTchannels.Add(t_YTchannel);
+                } catch (Exception e) { }
+            }
+            YoutubeChannels = t_YTchannels;
+
+            List<SubReddit> t_SubReddits = new List<SubReddit>();
+            foreach (RedditEntry t_RedditEntry in ProfileActu.SubReddits) {
+                try {
+                    SubReddit t_subReddit = new SubReddit();
+                    t_subReddit.id = t_RedditEntry.Id;
+                    t_subReddit.SubRedditName = t_RedditEntry.Name;
+                    t_subReddit.SubRedditLink = t_RedditEntry.Link;
+                    t_subReddit.SubRedditPosts = new RedditPostDAO().GetRedditPosts(t_subReddit.SubRedditLink);
+                    t_SubReddits.Add(t_subReddit);
+                } catch (Exception e) { }
+            }
+            SubReddits = t_SubReddits;
+
             //Refresh youtube
-            XmlNodeList t_YTchannelsNodes = CurrentProfile.SelectNodes("./YoutubeSetting/Channel");
+            /*XmlNodeList t_YTchannelsNodes = CurrentProfile.SelectNodes("./YoutubeSetting/Channel");
             List<YoutubeChannel> t_YTchannels = new List<YoutubeChannel>();
 
             foreach (XmlNode t_channelNode in t_YTchannelsNodes) {
@@ -109,9 +166,9 @@ namespace agregateurWPF
                     t_YTchannels.Add(t_YTchannel);
                 } catch (Exception e) { }
             }
-            YoutubeChannels = t_YTchannels;
+            YoutubeChannels = t_YTchannels;*/
 
-            XmlNodeList t_subredditsNodes = CurrentProfile.SelectNodes("./RedditSetting/SubReddit");
+            /*XmlNodeList t_subredditsNodes = CurrentProfile.SelectNodes("./RedditSetting/SubReddit");
             List<SubReddit> t_SubReddits = new List<SubReddit>();
 
             foreach (XmlNode t_SubRedditNode in t_subredditsNodes) {
@@ -123,17 +180,18 @@ namespace agregateurWPF
                     t_SubReddits.Add(t_subReddit);
                 } catch (Exception e) { }
             }
-            SubReddits = t_SubReddits;
+            SubReddits = t_SubReddits;*/
 
-            TwitchLives = new TwitchLiveDAO().GetLivesFromNodeList(CurrentProfile.SelectNodes("./TwitchSetting/Channel"));
+            TwitchLives = new TwitchLiveDAO().GetLivesFromEntryList(ProfileActu.TwitchLives);
+
             Representations = new GaieteFilmDAO().GetRepresentations();
             CsGoUpdades = new CsGoUpdateDAO().GetUpdates();
 
             m_vue.DisplayMenu(CurrentTab);
         }
 
-        public void SaveBufferConfig(List<YoutubeChannel> t_yts, List<TwitchLive> t_twitchs, List<SubReddit> t_reddits, string ProfileName) {
-            XmlNode t_Youtubeset = CurrentProfile.SelectSingleNode("./YoutubeSetting");
+        public void SaveBufferConfig(List<YoutubeChannel> a_yts, List<TwitchLive> a_twitchs, List<SubReddit> a_reddits, string a_ProfileName) {
+            /*XmlNode t_Youtubeset = CurrentProfile.SelectSingleNode("./YoutubeSetting");
             XmlNode t_Redditset = CurrentProfile.SelectSingleNode("./RedditSetting");
             XmlNode t_Twitchset = CurrentProfile.SelectSingleNode("./TwitchSetting");
             t_Youtubeset.RemoveAll();
@@ -180,9 +238,12 @@ namespace agregateurWPF
             }
 
             CurrentProfile.SelectSingleNode("./Name").InnerText = ProfileName;
-            ReloadProfileButtons();
+            */
+            SQLiteDAO.saveProfile(a_yts, a_twitchs, a_reddits, a_ProfileName, ProfileActu);
 
-            LoadProfile(CurrentProfile.SelectSingleNode("./Id").InnerText);
+            ReloadProfileButtons();
+            
+            LoadProfile(ProfileActu.Id.ToString());
         }
     }
 }

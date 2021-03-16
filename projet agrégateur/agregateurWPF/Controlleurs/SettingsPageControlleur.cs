@@ -21,7 +21,7 @@ namespace agregateurMetier
         }
         
         public void LoadCurrentConfig() {
-            m_Vue.SetProfileName(m_MainWindowControlleur.CurrentProfile.SelectSingleNode("./Name").InnerText);
+            m_Vue.SetProfileName(m_MainWindowControlleur.ProfileActu.Name);
 
             foreach (YoutubeChannel t_chan in m_MainWindowControlleur.YoutubeChannels){
                 m_Vue.AddThisSetting("YoutubeSettingBtn", t_chan);

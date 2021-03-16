@@ -28,7 +28,7 @@ namespace agregateurWPF
             if (!(a_sender is Button))
                 return;
             Button t_btn = (Button)a_sender;
-            if (m_controlleur.CurrentProfile.SelectSingleNode("./Id").InnerText != t_btn.Tag.ToString())
+            if (m_controlleur.ProfileActu.Id.ToString() != t_btn.Tag.ToString())
                 m_controlleur.LoadProfile(t_btn.Tag.ToString());
         }
 
